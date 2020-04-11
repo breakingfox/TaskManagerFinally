@@ -1,23 +1,26 @@
 package com.example.myapplication;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class TaskNode {
     private String title;
     private String description;
-    private String date;
+   // private String date;
     private int key;
     private boolean changed;
+    private String calendar;
 
     public TaskNode() {
 
     }
 
-    public TaskNode(String title, String description, String date, int key) {
+    public TaskNode(String title, String description,  int key,String calendar) {
         this.title = title;
         this.description = description;
-        this.date = date;
+     //   this.date = date;
         this.key = key;
+        this.calendar = calendar;
         changed = false;
     }
 
@@ -47,8 +50,13 @@ public class TaskNode {
         return this.description;
     }
 
-    public String getDate() {
-        return this.date;
+
+    public String getCalendar() {
+        return calendar;
+    }
+
+    public void setCalendar(String calendar) {
+        this.calendar = calendar;
     }
 
     public void setTitle(String name) {
@@ -59,11 +67,5 @@ public class TaskNode {
         this.description = description;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
 
-    public void setPhoneNumber(String number) {
-        this.date = number;
-    }
 }

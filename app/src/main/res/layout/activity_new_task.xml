@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="153dp"
+        android:layout_height="128dp"
         android:background="@color/colorPrimaryDark"
         android:orientation="vertical">
 
@@ -29,7 +29,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="13dp"
             android:layout_marginTop="20dp"
             android:background="#131E69" />
 
@@ -37,7 +37,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="410dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="-60dp"
         android:layout_marginRight="16dp"
@@ -108,7 +108,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="158dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="16dp"
@@ -124,11 +124,24 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/date"
+                android:id="@+id/etTimePicker"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:background="@color/common_google_signin_btn_text_dark_default"
-                android:hint="When will?"
+                android:focusable="false"
+                android:hint="Pick time"
+                android:inputType="text"
+                android:paddingLeft="12dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="#B5B5B5" />
+
+            <EditText
+                android:id="@+id/etDatePicker"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@color/common_google_signin_btn_text_dark_default"
+                android:focusable="false"
+                android:hint="Pick date?"
                 android:inputType="text"
                 android:paddingLeft="12dp"
                 android:textColor="@color/colorPrimaryDark"

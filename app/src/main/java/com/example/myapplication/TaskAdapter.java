@@ -10,7 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> {
     Context context;
@@ -33,20 +35,21 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, int i) {
         holder.title.setText(taskList.get(i).getTitle());
         holder.description.setText(taskList.get(i).getDescription());
-        holder.date.setText(taskList.get(i).getDate());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
+        holder.calendar.setText(taskList.get(i).getCalendar());
         final String title = taskList.get(i).getTitle();
         final String description = taskList.get(i).getDescription();
-        final String date = taskList.get(i).getDate();
         final String key = Integer.toString(taskList.get(i).getKey());
+        final String calendar = taskList.get(i).getCalendar();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent editing = new Intent(context,EditTask.class);
                 editing.putExtra("title", title);
                 editing.putExtra("description", description);
-                editing.putExtra("date", date);
                 editing.putExtra("key", key);
+                editing.putExtra("calendar",calendar);
                 context.startActivity(editing);
             }
         });
@@ -59,13 +62,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title, description, date, key;
+        TextView title, description,  key,calendar;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
             description = (TextView) itemView.findViewById(R.id.description);
-            date = (TextView) itemView.findViewById(R.id.date);
+            calendar = (TextView) itemView.findViewById(R.id.calendar);
         }
     }
 }
