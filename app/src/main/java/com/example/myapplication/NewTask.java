@@ -92,7 +92,8 @@ public class NewTask extends AppCompatActivity {
                         dataSnapshot.getRef().child("description").setValue(description.getText().toString());
                         dataSnapshot.getRef().child("key").setValue(key);
                         Log.w("NewTask", String.valueOf(calendar.get(Calendar.MONTH)));
-                        dataSnapshot.getRef().child("calendar").setValue(calendar.get(Calendar.DAY_OF_MONTH) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.YEAR) + " " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
+                        int curMonth=calendar.get(Calendar.MONTH)+1;
+                        dataSnapshot.getRef().child("calendar").setValue(calendar.get(Calendar.DAY_OF_MONTH) + "." + curMonth + "." + calendar.get(Calendar.YEAR) + " " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
                         Intent main = new Intent(NewTask.this, MainActivity.class);
                         startActivity(main);
                     }
