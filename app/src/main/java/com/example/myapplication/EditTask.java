@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -34,11 +35,13 @@ public class EditTask extends AppCompatActivity {
     String key;
     DatabaseReference ref;
     Calendar calendar = null;
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+        spinner = findViewById(R.id.spinner2);
         title = findViewById(R.id.title);
         description = findViewById(R.id.description);
         btnSave = findViewById(R.id.btnSave);
@@ -48,6 +51,10 @@ public class EditTask extends AppCompatActivity {
         title.setText(getIntent().getStringExtra("title"));
         description.setText(getIntent().getStringExtra("description"));
         key = getIntent().getStringExtra("key");
+
+        if(getIntent().getStringExtra("type").equalsIgnoreCase( "Работа"))
+            spinner.setSelection(1);
+
         final String TAG = "EditTask";
         String time = getIntent().getStringExtra("calendar");
         Log.w(TAG, time);
@@ -108,6 +115,7 @@ public class EditTask extends AppCompatActivity {
                 ref.child("description").setValue(description.getText().toString());
                 ref.child("calendar").setValue(calendar.get(Calendar.DAY_OF_MONTH) + "." + curMonth + "." + calendar.get(Calendar.YEAR) + " " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
                 ref.child("key").setValue(Integer.parseInt(key));
+                ref.child("type").setValue(spinner.getSelectedItem().toString());
                 Intent edit = new Intent(EditTask.this, MainActivity.class);
                 if (calendar.after(Calendar.getInstance())) {
                     Log.w("EditTask", "Time im millis for notification: " + String.valueOf(calendar.getTimeInMillis() / 1000));

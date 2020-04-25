@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -45,11 +46,15 @@ public class NewTask extends AppCompatActivity {
     NotificationCompat.Builder notificationBuilder;
     NotificationManagerCompat notificationManager;
     Notification notification;
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_task_old);
+        setContentView(R.layout.activity_new_task);
+
+        spinner = findViewById(R.id.spinner1);
+
         titles = findViewById(R.id.titles);
         addTitle = findViewById(R.id.addtTitle);
         title = findViewById(R.id.title);
@@ -104,6 +109,9 @@ public class NewTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(NewTask.this, "Been here, done that", Toast.LENGTH_SHORT).show();
+
+                String selected_type = spinner.getSelectedItem().toString();
+
                 ref = FirebaseDatabase.getInstance().getReference().child("TaskManager").child("Task" + key);
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -114,6 +122,9 @@ public class NewTask extends AppCompatActivity {
                         //   Log.w("NewTask", String.valueOf(calendar.get(Calendar.MONTH)));
                         int curMonth = calendar.get(Calendar.MONTH) + 1;
                         dataSnapshot.getRef().child("calendar").setValue(calendar.get(Calendar.DAY_OF_MONTH) + "." + curMonth + "." + calendar.get(Calendar.YEAR) + " " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
+
+                        dataSnapshot.getRef().child("type").setValue(spinner.getSelectedItem().toString());
+
                         Intent main = new Intent(NewTask.this, MainActivity.class);
 
                         if (calendar.after(Calendar.getInstance())) {
