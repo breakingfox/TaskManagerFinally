@@ -1,12 +1,14 @@
 package com.example.myapplication;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class TaskNode implements Comparable<TaskNode>{
+public class TaskNode implements Comparable<TaskNode> {
     private String title;
     private String description;
-   // private String date;
+    // private String date;
     private int key;
     private boolean changed;
     private String calendar;
@@ -27,7 +29,7 @@ public class TaskNode implements Comparable<TaskNode>{
     public TaskNode(String title, String description, int key, String calendar, String type) {
         this.title = title;
         this.description = description;
-     //   this.date = date;
+        //   this.date = date;
         this.key = key;
         this.calendar = calendar;
         this.type = type;
@@ -77,8 +79,15 @@ public class TaskNode implements Comparable<TaskNode>{
         this.description = description;
     }
 
-public int compareTo(TaskNode t)
-        {
-        return this.calendar.compareTo(t.calendar);
+    public int compareTo(TaskNode t) {
+        Calendar calCur = Calendar.getInstance(), calTemp = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        try {
+            calCur.setTime(dateFormat.parse(this.calendar));
+            calTemp.setTime(dateFormat.parse(t.calendar));
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        return calCur.compareTo(calTemp);
+    }
 }

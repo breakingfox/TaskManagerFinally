@@ -52,7 +52,7 @@ public class EditTask extends AppCompatActivity {
         description.setText(getIntent().getStringExtra("description"));
         key = getIntent().getStringExtra("key");
 
-        if(getIntent().getStringExtra("type").equalsIgnoreCase( "Работа"))
+        if (getIntent().getStringExtra("type").equalsIgnoreCase("Работа"))
             spinner.setSelection(1);
 
         final String TAG = "EditTask";
@@ -101,7 +101,13 @@ public class EditTask extends AppCompatActivity {
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         calendar.set(Calendar.MINUTE, minutes);
-                        etTimePicker.setText(hourOfDay + ":" + minutes);
+                        String curHour = Integer.toString(hourOfDay);
+                        String curMinute = Integer.toString(minutes);
+                        if (hourOfDay < 10)
+                            curHour = "0" + Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
+                        if (minutes < 10)
+                            curMinute = "0" + Integer.toString(calendar.get(Calendar.MINUTE));
+                        etTimePicker.setText(curHour + ":" + curMinute);
                     }
                 }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
                 timePickerDialog.show();
@@ -117,24 +123,28 @@ public class EditTask extends AppCompatActivity {
                 ref.child("key").setValue(Integer.parseInt(key));
                 ref.child("type").setValue(spinner.getSelectedItem().toString());
                 Intent edit = new Intent(EditTask.this, MainActivity.class);
+                Intent notifyIntent = new Intent(EditTask.this, NotificationBroadcast.class);
+                Log.w("EditTask", "Time im millis for notification: " + String.valueOf(calendar.getTimeInMillis() / 1000));
+
+                Log.w("EditTask", "Title: " + title.getText().toString());
+                Log.w("EditTask", "Desc: " + description.getText().toString());
+                Log.w("EditTask", "ID: " + key);
+                notifyIntent.putExtra("title", title.getText().toString());
+                notifyIntent.putExtra("description", description.getText().toString());
+                notifyIntent.putExtra("key", key);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(EditTask.this, Integer.parseInt(key), notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                Calendar time = Calendar.getInstance();
+                long temp = (calendar.getTimeInMillis() - time.getTimeInMillis()) / 1000;
+                Log.w("EditTask", "Time now: " + String.valueOf(time.getTimeInMillis() / 1000));
+                Log.w("EditTask", "Time diff: " + String.valueOf(temp));
+                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
                 if (calendar.after(Calendar.getInstance())) {
-                    Log.w("EditTask", "Time im millis for notification: " + String.valueOf(calendar.getTimeInMillis() / 1000));
-
-                    Intent notifyIntent = new Intent(EditTask.this, NotificationBroadcast.class);
-                    Log.w("EditTask", "Title: " + title.getText().toString());
-                    Log.w("EditTask", "Desc: " + description.getText().toString());
-                    Log.w("EditTask", "ID: " + key);
-                    notifyIntent.putExtra("title", title.getText().toString());
-                    notifyIntent.putExtra("description", description.getText().toString());
-                    notifyIntent.putExtra("key", key);
-
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(EditTask.this, Integer.parseInt(key), notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    Calendar time = Calendar.getInstance();
-                    long temp = (calendar.getTimeInMillis() - time.getTimeInMillis()) / 1000;
-                    Log.w("EditTask", "Time now: " + String.valueOf(time.getTimeInMillis() / 1000));
-                    Log.w("EditTask", "Time diff: " + String.valueOf(temp));
-                    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis()-20000, pendingIntent);
+                }
+                else{
+                    alarmManager.cancel(pendingIntent);
                 }
                 startActivity(edit);
             }
@@ -142,12 +152,20 @@ public class EditTask extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    ref.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                ref.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Intent deleted = new Intent(EditTask.this, MainActivity.class);
-                            startActivity(deleted);
+                            Intent toMain = new Intent(EditTask.this, MainActivity.class);
+
+                            Intent notifyIntent = new Intent(EditTask.this, NotificationBroadcast.class);
+                            notifyIntent.putExtra("title", title.getText().toString());
+                            notifyIntent.putExtra("description", description.getText().toString());
+                            notifyIntent.putExtra("key", key);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(EditTask.this, Integer.parseInt(key), notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                            alarmManager.cancel(pendingIntent);
+                            startActivity(toMain);
                         } else {
                             Toast.makeText(getApplicationContext(), "Failed to delete", Toast.LENGTH_SHORT).show();
 

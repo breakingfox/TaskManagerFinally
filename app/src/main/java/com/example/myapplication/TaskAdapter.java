@@ -36,7 +36,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
         holder.title.setText(taskList.get(i).getTitle());
         holder.description.setText(taskList.get(i).getDescription());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-
         holder.calendar.setText(taskList.get(i).getCalendar());
         final String title = taskList.get(i).getTitle();
         final String description = taskList.get(i).getDescription();
