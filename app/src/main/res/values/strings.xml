@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string-array name="types">
+        <item>Учёба</item>
+        <item>Работа</item>
+    </string-array>
+    <string name="app_name">Task Manager</string>
 </resources>

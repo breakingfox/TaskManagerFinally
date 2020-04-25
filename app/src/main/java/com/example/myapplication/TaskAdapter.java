@@ -10,9 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.R;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> {
     Context context;
@@ -28,7 +29,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.task, parent, false));
-
     }
 
     @Override
@@ -42,6 +42,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
         final String description = taskList.get(i).getDescription();
         final String key = Integer.toString(taskList.get(i).getKey());
         final String calendar = taskList.get(i).getCalendar();
+        final String type = taskList.get(i).getType();
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,10 +52,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
                 editing.putExtra("description", description);
                 editing.putExtra("key", key);
                 editing.putExtra("calendar",calendar);
+                editing.putExtra("type",type);
                 context.startActivity(editing);
             }
         });
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -61,8 +66,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-
-        TextView title, description,  key,calendar;
+        TextView title, description,  key,calendar, type;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
