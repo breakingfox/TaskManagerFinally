@@ -60,7 +60,7 @@
                 android:layout_height="45dp"
                 android:background="@color/common_google_signin_btn_text_dark_default"
                 android:hint="Введите название"
-                android:inputType="text"
+                android:inputType="textMultiLine|textCapSentences"
                 android:maxLength="50"
                 android:paddingLeft="12dp"
                 android:textColorHint="#B5B5B5" />

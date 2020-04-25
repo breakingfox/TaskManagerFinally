@@ -92,7 +92,13 @@ public class NewTask extends AppCompatActivity {
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         calendar.set(Calendar.MINUTE, minutes);
-                        etTimePicker.setText(hourOfDay + ":" + minutes);
+                        String curHour = Integer.toString(hourOfDay);
+                        String curMinute = Integer.toString(minutes);
+                        if (calendar.get(Calendar.HOUR_OF_DAY) < 10)
+                            curHour = "0" + Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
+                        if (calendar.get(Calendar.MINUTE) < 10)
+                            curMinute = "0" + Integer.toString(calendar.get(Calendar.MINUTE));
+                        etTimePicker.setText(curHour + ":" + curMinute);
                     }
                 }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
                 timePickerDialog.show();
@@ -121,7 +127,13 @@ public class NewTask extends AppCompatActivity {
                         dataSnapshot.getRef().child("key").setValue(key);
                         //   Log.w("NewTask", String.valueOf(calendar.get(Calendar.MONTH)));
                         int curMonth = calendar.get(Calendar.MONTH) + 1;
-                        dataSnapshot.getRef().child("calendar").setValue(calendar.get(Calendar.DAY_OF_MONTH) + "." + curMonth + "." + calendar.get(Calendar.YEAR) + " " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
+                        String curHour = Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
+                        String curMinute = Integer.toString(calendar.get(Calendar.MINUTE));
+                        if (calendar.get(Calendar.HOUR_OF_DAY) < 10)
+                            curHour = "0" + Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
+                        if (calendar.get(Calendar.MINUTE) < 10)
+                            curMinute = "0" + Integer.toString(calendar.get(Calendar.MINUTE));
+                        dataSnapshot.getRef().child("calendar").setValue(calendar.get(Calendar.DAY_OF_MONTH) + "." + curMonth + "." + calendar.get(Calendar.YEAR) + " " + curHour + ":" + curMinute);
 
                         dataSnapshot.getRef().child("type").setValue(spinner.getSelectedItem().toString());
 
@@ -144,7 +156,7 @@ public class NewTask extends AppCompatActivity {
                             Log.w("NewTask", "Time now: " + String.valueOf(time.getTimeInMillis() / 1000));
                             Log.w("NewTask", "Time diff: " + String.valueOf(temp));
                             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - 20000, pendingIntent);
                         }
                         startActivity(main);
                     }
