@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ShowTask extends AppCompatActivity {
     TextView title;
@@ -41,6 +42,7 @@ public class ShowTask extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     TaskNode node = dataSnapshot1.getValue(TaskNode.class);
                     taskList.add(node);
+                    Collections.sort(taskList); //сортировка ( taskNode имплементирует comparable )
                 }
                 taskAdapter = new TaskAdapter(ShowTask.this, taskList);
                 taskView.setAdapter(taskAdapter);

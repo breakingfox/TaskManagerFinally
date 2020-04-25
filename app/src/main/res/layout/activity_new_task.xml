@@ -37,7 +37,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="410dp"
+        android:layout_height="500dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="-60dp"
         android:layout_marginRight="16dp"
@@ -98,8 +98,8 @@
                 android:layout_height="55dp"
                 android:background="@color/common_google_signin_btn_text_dark_default"
                 android:hint="How to?"
-                android:inputType="text"
-                android:maxLength="25"
+                android:inputType="textMultiLine|textCapSentences"
+                android:maxLength="250"
                 android:paddingLeft="12dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textColorHint="#B5B5B5" />
@@ -146,6 +146,30 @@
                 android:paddingLeft="12dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textColorHint="#B5B5B5" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">>
+
+            <TextView
+                android:id="@+id/setType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Type of task"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:entries="@array/types"/>
 
         </LinearLayout>
 

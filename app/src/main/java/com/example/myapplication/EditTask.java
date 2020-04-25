@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -107,13 +109,32 @@ public class EditTask extends AppCompatActivity {
                 ref.child("calendar").setValue(calendar.get(Calendar.DAY_OF_MONTH) + "." + curMonth + "." + calendar.get(Calendar.YEAR) + " " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
                 ref.child("key").setValue(Integer.parseInt(key));
                 Intent edit = new Intent(EditTask.this, MainActivity.class);
+                if (calendar.after(Calendar.getInstance())) {
+                    Log.w("EditTask", "Time im millis for notification: " + String.valueOf(calendar.getTimeInMillis() / 1000));
+
+                    Intent notifyIntent = new Intent(EditTask.this, NotificationBroadcast.class);
+                    Log.w("EditTask", "Title: " + title.getText().toString());
+                    Log.w("EditTask", "Desc: " + description.getText().toString());
+                    Log.w("EditTask", "ID: " + key);
+                    notifyIntent.putExtra("title", title.getText().toString());
+                    notifyIntent.putExtra("description", description.getText().toString());
+                    notifyIntent.putExtra("key", key);
+
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(EditTask.this, Integer.parseInt(key), notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    Calendar time = Calendar.getInstance();
+                    long temp = (calendar.getTimeInMillis() - time.getTimeInMillis()) / 1000;
+                    Log.w("EditTask", "Time now: " + String.valueOf(time.getTimeInMillis() / 1000));
+                    Log.w("EditTask", "Time diff: " + String.valueOf(temp));
+                    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                }
                 startActivity(edit);
             }
         });
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ref.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    ref.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {

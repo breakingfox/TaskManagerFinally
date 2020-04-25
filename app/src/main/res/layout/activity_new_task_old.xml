@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="153dp"
+        android:layout_height="128dp"
         android:background="@color/colorPrimaryDark"
         android:orientation="vertical">
 
@@ -22,14 +22,14 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="18dp"
             android:gravity="center_horizontal"
-            android:text="Edit your task"
+            android:text="Create New Task"
             android:textAlignment="center"
             android:textColor="#FFF"
             android:textSize="26sp" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="13dp"
             android:layout_marginTop="20dp"
             android:background="#131E69" />
 
@@ -37,7 +37,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="410dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="-60dp"
         android:layout_marginRight="16dp"
@@ -68,7 +68,6 @@
                 android:layout_height="55dp"
                 android:background="@color/common_google_signin_btn_text_dark_default"
                 android:hint="What You Do?"
-                android:maxLength="50"
                 android:inputType="text"
                 android:paddingLeft="12dp"
                 android:textColor="@color/colorPrimaryDark"
@@ -100,7 +99,7 @@
                 android:background="@color/common_google_signin_btn_text_dark_default"
                 android:hint="How to?"
                 android:inputType="text"
-                android:maxLength="250"
+                android:maxLength="25"
                 android:paddingLeft="12dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textColorHint="#B5B5B5" />
@@ -109,7 +108,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="158dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="16dp"
@@ -123,6 +122,7 @@
                 android:text="Timeline"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp" />
+
             <EditText
                 android:id="@+id/etTimePicker"
                 android:layout_width="match_parent"
@@ -147,7 +147,6 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textColorHint="#B5B5B5" />
 
-
         </LinearLayout>
 
 
@@ -161,20 +160,20 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="16dp"
         android:background="@android:drawable/title_bar_tall"
-        android:text="Save"
+        android:text="Create Task"
         android:textAllCaps="false"
         android:textColor="#FFF"
         android:textSize="22sp" />
 
     <Button
-        android:id="@+id/btnDelete"
+        android:id="@+id/btnCancel"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="14dp"
         android:layout_marginRight="16dp"
         android:background="@android:drawable/title_bar_tall"
-        android:text="Delete"
+        android:text="Cancel"
         android:textAllCaps="false"
         android:textColor="#AFAFAF"
         android:textSize="22sp" />

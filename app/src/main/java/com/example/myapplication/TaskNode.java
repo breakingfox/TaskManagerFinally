@@ -3,7 +3,7 @@ package com.example.myapplication;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class TaskNode {
+public class TaskNode implements Comparable<TaskNode>{
     private String title;
     private String description;
    // private String date;
@@ -67,5 +67,8 @@ public class TaskNode {
         this.description = description;
     }
 
-
+public int compareTo(TaskNode t)
+        {
+        return this.calendar.compareTo(t.calendar);
+        }
 }

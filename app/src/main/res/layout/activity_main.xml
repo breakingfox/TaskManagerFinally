@@ -1,108 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#33B3E6">
+    tools:context=".MainActivity"
+    tools:ignore="MissingDefaultResource">
 
-    <Button
-        android:id="@+id/btnAddNew"
-        android:layout_width="287dp"
-        android:layout_height="76dp"
-        android:layout_marginTop="276dp"
-        android:background="#FF5722"
-        android:text="New Task"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/btnShow"
-        android:layout_width="287dp"
-        android:layout_height="69dp"
-        android:layout_marginTop="60dp"
-        android:background="#FF5722"
-        android:text="Show Tasks"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddNew"
-        tools:ignore="MissingConstraints" /><![CDATA[
-
-    android:text="Edit Tasks" />
-    ]]><!--
-    <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        android:background="#38A9B8"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+    <RelativeLayout
+        android:id="@+id/linear_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/linear_layout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="95dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:orientation="vertical"></LinearLayout>
-
-            <LinearLayout
-                android:layout_width="225dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="210dp" />
-
-                <Button
-                    android:id="@+id/btnAddNew"
-                    android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:background="#FF5722"
-                    android:text="New Task" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp" />
-
-                <Button
-                    android:id="@+id/btnShow"
-                    android:layout_width="match_parent"
-                    android:layout_height="62dp"
-                    android:background="#FF5722"
-                    android:text="Show Tasks" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp" />
-
-                <Button
-                    android:id="@+id/btnEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="62dp"
-                    android:background="#FF5722"
-                    android:text="Edit Tasks" />
-            </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="right"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Учёба" />
+
+                <Button
+                    android:id="@+id/button13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Работа" />
 
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="0dp"
+            android:layout_below="@id/linear_layout2"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:layout_above = "@+id/linear_layout4">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tasks"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 
-    </LinearLayout>
-    -->
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/linear_layout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <!-- <Button
+                    android:id="@+id/button9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="..." />
+
+                <Button
+                    android:id="@+id/button8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="...." />
+
+                <Button
+                    android:id="@+id/button6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="..." /> -->
+
+                <Button
+                    android:id="@+id/btnAddNew"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ДОБАВИТЬ" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
