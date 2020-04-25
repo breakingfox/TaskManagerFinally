@@ -42,6 +42,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
         final String description = taskList.get(i).getDescription();
         final String key = Integer.toString(taskList.get(i).getKey());
         final String calendar = taskList.get(i).getCalendar();
+        final String type = taskList.get(i).getType();
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +52,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
                 editing.putExtra("description", description);
                 editing.putExtra("key", key);
                 editing.putExtra("calendar",calendar);
+                editing.putExtra("type",type);
                 context.startActivity(editing);
             }
         });
@@ -61,8 +64,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-
-        TextView title, description,  key,calendar;
+        TextView title, description,  key,calendar, type;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

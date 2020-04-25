@@ -3,24 +3,33 @@ package com.example.myapplication;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class TaskNode {
+public class TaskNode implements Comparable<TaskNode>{
     private String title;
     private String description;
-   // private String date;
     private int key;
     private boolean changed;
     private String calendar;
+
+    private String type;
 
     public TaskNode() {
 
     }
 
-    public TaskNode(String title, String description,  int key,String calendar) {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public TaskNode(String title, String description, int key, String calendar, String type) {
         this.title = title;
         this.description = description;
-     //   this.date = date;
         this.key = key;
         this.calendar = calendar;
+        this.type = type;
         changed = false;
     }
 
@@ -68,4 +77,8 @@ public class TaskNode {
     }
 
 
+    @Override
+    public int compareTo(TaskNode t) {
+        return this.calendar.compareTo(t.calendar);
+    }
 }

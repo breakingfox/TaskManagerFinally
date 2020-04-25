@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -26,13 +27,13 @@ import java.util.Random;
 
 public class NewTask extends AppCompatActivity {
     DatePickerDialog datePickerDialog;
-
-
     TextView titles, addTitle, addDescription, addDate;
     Button btnSave, btnCancel;
     EditText title, description, etDatePicker, etTimePicker;
     DatabaseReference ref;
     Integer key = new Random().nextInt();
+
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,9 @@ public class NewTask extends AppCompatActivity {
         btnCancel = findViewById(R.id.btnCancel);
         etDatePicker = findViewById(R.id.etDatePicker);
         etTimePicker = findViewById(R.id.etTimePicker);
+
+        spinner = findViewById(R.id.spinner);
+
         final Calendar calendar = Calendar.getInstance();
         etDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +95,9 @@ public class NewTask extends AppCompatActivity {
                         dataSnapshot.getRef().child("title").setValue(title.getText().toString());
                         dataSnapshot.getRef().child("description").setValue(description.getText().toString());
                         dataSnapshot.getRef().child("key").setValue(key);
+
+                        dataSnapshot.getRef().child("type").setValue(spinner.getSelectedItem().toString());
+
                         Log.w("NewTask", String.valueOf(calendar.get(Calendar.MONTH)));
                         dataSnapshot.getRef().child("calendar").setValue(calendar.get(Calendar.DAY_OF_MONTH) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.YEAR) + " " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
                         Intent main = new Intent(NewTask.this, MainActivity.class);
