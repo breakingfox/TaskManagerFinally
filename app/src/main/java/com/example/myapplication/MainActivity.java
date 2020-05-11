@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
         title = findViewById(R.id.title);
         taskView = findViewById(R.id.tasks);
         LinearLayoutManager manager = new LinearLayoutManager(this);
-        taskView.setLayoutManager(manager);
+        GridLayoutManager gridManager = new GridLayoutManager(this,2);
+        AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(this, 500);
+        taskView.setLayoutManager(layoutManager);
         taskView.setHasFixedSize(true);
         taskList = new ArrayList<TaskNode>();
 
@@ -81,14 +84,14 @@ public class MainActivity extends AppCompatActivity {
                 taskAdapter.notifyDataSetChanged();
 
                 for (int i = 0; i < taskList.size(); i++) {
-                    if(taskList.get(i).getType().equalsIgnoreCase("Учёба"))
+                    if (taskList.get(i).getType().equalsIgnoreCase("Учёба"))
                         taskList1.add(taskList.get(i));
-                    else if(taskList.get(i).getType().equalsIgnoreCase("Работа"))
+                    else if (taskList.get(i).getType().equalsIgnoreCase("Работа"))
                         taskList2.add(taskList.get(i));
                 }
 
-                taskAdapter1 = new TaskAdapter(MainActivity.this,taskList1);
-                taskAdapter2 = new TaskAdapter(MainActivity.this,taskList2);
+                taskAdapter1 = new TaskAdapter(MainActivity.this, taskList1);
+                taskAdapter2 = new TaskAdapter(MainActivity.this, taskList2);
             }
 
             @Override

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    android:background="@drawable/rounded_drawable"
+    android:orientation="horizontal">
+
+    <LinearLayout
+
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginLeft="10dp"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:background="#FFFFFF"
+
+            android:text="Buy whiskas"
+            android:textAllCaps="false"
+            android:textColor="#337f7f"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Nearly market good to"
+            android:textColor="#40AFAF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/calendar"
+            android:layout_width="178dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="Tomorrow"
+            android:textAlignment="textStart"
+            android:textColor="#40AFAF"
+            android:textSize="18sp"
+            tools:ignore="RtlCompat" />
+
+    </LinearLayout>
+
+</LinearLayout>
