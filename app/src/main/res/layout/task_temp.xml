@@ -25,7 +25,7 @@
 
             android:text="Buy whiskas"
             android:textAllCaps="false"
-            android:textColor="#337f7f"
+            android:textColor="#337E7E"
             android:textSize="22sp"
             android:textStyle="bold" />
 
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Nearly market good to"
-            android:textColor="#40AFAF"
+            android:textColor="#3EA8A8"
             android:textSize="18sp" />
 
         <TextView
