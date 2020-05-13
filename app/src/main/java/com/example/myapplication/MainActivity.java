@@ -3,6 +3,8 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         title = findViewById(R.id.title);
         taskView = findViewById(R.id.tasks);
         LinearLayoutManager manager = new LinearLayoutManager(this);
-        GridLayoutManager gridManager = new GridLayoutManager(this,2);
+        GridLayoutManager gridManager = new GridLayoutManager(this, 2);
         AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(this, 500);
         taskView.setLayoutManager(layoutManager);
         taskView.setHasFixedSize(true);
@@ -99,12 +101,15 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "No Data", Toast.LENGTH_SHORT).show();
             }
         });
-
+        final Animation fallingAnimation = AnimationUtils.loadAnimation(this, R.anim.falling_down);
         btnTypeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 taskView.setAdapter(taskAdapter);
                 taskAdapter.notifyDataSetChanged();
+                btnTypeAll.startAnimation(fallingAnimation);
+
+
             }
         });
 
