@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         if(firstStart.equals("0")) {
             showId();
         }
-        Toast.makeText(this,firstStart,Toast.LENGTH_LONG).show();
 
         btnAddNew = findViewById(R.id.btnAddNew);
         btnAddNew.setOnClickListener(new View.OnClickListener() {
@@ -147,16 +146,7 @@ public class MainActivity extends AppCompatActivity {
     private void showId()
     {
         String ID = Integer.toString((int)((Math.random()*100000000)));
-        new AlertDialog.Builder(this)
-                .setTitle("Your id is")
-                .setMessage(ID)
-                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .create().show();
+
         SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
