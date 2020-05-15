@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,6 +39,7 @@ import java.util.Random;
 public class NewTask extends AppCompatActivity {
     DatePickerDialog datePickerDialog;
     public static final String CHANNEL_ID_1 = "channel1";
+    public static final String SHARED_PREFS = "prefs";
     TextView titles, addTitle, addDescription, addDate;
     Button btnSave, btnCancel;
     EditText title, description, etDatePicker, etTimePicker;
@@ -52,6 +54,9 @@ public class NewTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
+
+        SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        final String firstStart = preferences.getString("firstStart","0");
 
         spinner = findViewById(R.id.spinner1);
 
@@ -118,7 +123,7 @@ public class NewTask extends AppCompatActivity {
 
                 String selected_type = spinner.getSelectedItem().toString();
 
-                ref = FirebaseDatabase.getInstance().getReference().child("TaskManager").child("Task" + key);
+                ref = FirebaseDatabase.getInstance().getReference().child("TaskManager").child(firstStart).child("Task" + key);
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

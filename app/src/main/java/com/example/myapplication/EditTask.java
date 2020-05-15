@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class EditTask extends AppCompatActivity {
+    public static final String SHARED_PREFS = "prefs";
     EditText title, description, date, etDatePicker, etTimePicker;
     Button btnSave, btnDelete;
     String key;
@@ -41,6 +43,10 @@ public class EditTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+
+        SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        final String firstStart = preferences.getString("firstStart","0");
+
         spinner = findViewById(R.id.spinner2);
         title = findViewById(R.id.title);
         description = findViewById(R.id.description);
@@ -72,7 +78,7 @@ public class EditTask extends AppCompatActivity {
 
         etTimePicker.setText(calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE));
         etDatePicker.setText(calendar.get(Calendar.DAY_OF_MONTH) + "." + curMonth + "." + calendar.get(Calendar.YEAR));
-        ref = FirebaseDatabase.getInstance().getReference().child("TaskManager").child("Task" + key);
+        ref = FirebaseDatabase.getInstance().getReference().child("TaskManager").child(firstStart).child("Task" + key);
 
 
         etDatePicker.setOnClickListener(new View.OnClickListener() {

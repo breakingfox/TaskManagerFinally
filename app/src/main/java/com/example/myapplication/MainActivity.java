@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,6 +31,7 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity {
 
     public static final String CHANNEL_ID = "channel";
+    public static final String SHARED_PREFS = "prefs";
     Button btnAddNew;
     TextView title;
     RecyclerView taskView;
@@ -40,10 +44,19 @@ public class MainActivity extends AppCompatActivity {
     Button btnTypeWork;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        final String firstStart = preferences.getString("firstStart","0");
+        if(firstStart.equals("0")) {
+            showId();
+        }
+        Toast.makeText(this,firstStart,Toast.LENGTH_LONG).show();
 
         btnAddNew = findViewById(R.id.btnAddNew);
         btnAddNew.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         taskList1 = new ArrayList<TaskNode>();
         taskList2 = new ArrayList<TaskNode>();
 
-        ref = FirebaseDatabase.getInstance().getReference().child("TaskManager");
+        ref = FirebaseDatabase.getInstance().getReference().child("TaskManager").child(firstStart);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -129,5 +142,25 @@ public class MainActivity extends AppCompatActivity {
                 taskAdapter2.notifyDataSetChanged();
             }
         });
+    }
+
+    private void showId()
+    {
+        String ID = Integer.toString((int)((Math.random()*100000000)));
+        new AlertDialog.Builder(this)
+                .setTitle("Your id is")
+                .setMessage(ID)
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create().show();
+        SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putString("firstStart",ID);
+        editor.apply();
     }
 }
