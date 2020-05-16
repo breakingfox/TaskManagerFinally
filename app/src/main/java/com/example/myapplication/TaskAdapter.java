@@ -74,4 +74,5 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
             calendar = (TextView) itemView.findViewById(R.id.calendar);
         }
     }
+
 }

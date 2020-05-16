@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,16 +35,18 @@ public class MainActivity extends AppCompatActivity {
     public static final String SHARED_PREFS = "prefs";
     Button btnAddNew;
     TextView title;
-    RecyclerView taskView;
+    RecyclerView taskView, typeView;
     ArrayList<TaskNode> taskList, taskList1, taskList2;
+
+    ArrayList<String> taskTypes;
+    TypeAdapter typeAdapter;
+
     DatabaseReference ref;
     TaskAdapter taskAdapter, taskAdapter1, taskAdapter2;
     Button btnTypeAll;
 
     Button btnTypeStudy;
     Button btnTypeWork;
-
-
 
 
     @Override
@@ -68,10 +71,20 @@ public class MainActivity extends AppCompatActivity {
 
         title = findViewById(R.id.title);
         taskView = findViewById(R.id.tasks);
+
+        typeView = findViewById(R.id.task_types);
+        LinearLayoutManager manager1 = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        typeView.setLayoutManager(manager1);
+        typeView.setHasFixedSize(true);
+        taskTypes = new ArrayList<>();
+        typeAdapter = new TypeAdapter(taskTypes);
+
+
+
         LinearLayoutManager manager = new LinearLayoutManager(this);
         GridLayoutManager gridManager = new GridLayoutManager(this, 2);
         AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(this, 500);
-        taskView.setLayoutManager(layoutManager);
+        taskView.setLayoutManager(gridManager);
         taskView.setHasFixedSize(true);
         taskList = new ArrayList<TaskNode>();
 
