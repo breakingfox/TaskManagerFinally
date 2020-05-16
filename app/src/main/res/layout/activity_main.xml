@@ -71,11 +71,27 @@
         </LinearLayout>
 
         <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/liner"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below = "@+id/linear_layout2"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/task_types"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/linear_layout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/linear_layout4"
-            android:layout_below="@id/linear_layout2"
+            android:layout_below="@id/liner"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
