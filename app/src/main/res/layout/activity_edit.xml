@@ -23,6 +23,8 @@
             android:layout_marginBottom="18dp"
             android:background="@drawable/top_buttons"
             android:gravity="center_horizontal"
+            android:fontFamily="@font/permian_sans_typefaceold"
+
             android:text="Редактирование задачи"
             android:textAlignment="center"
             android:textColor="#337E7E"
@@ -55,6 +57,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:background="@drawable/rounded_drawable"
+                android:fontFamily="@font/prmianerifypeface"
+
                 android:hint="Название"
                 android:inputType="textMultiLine|textCapSentences"
                 android:maxLength="50"
@@ -79,6 +83,8 @@
                 android:layout_height="70dp"
                 android:background="@drawable/rounded_drawable"
                 android:hint="Описание"
+                android:fontFamily="@font/prmianerifypeface"
+
                 android:inputType="textMultiLine|textCapSentences"
                 android:maxLength="250"
                 android:paddingLeft="12dp"
@@ -100,11 +106,13 @@
                 android:id="@+id/etTimePicker"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
+                android:fontFamily="@font/prmianerifypeface"
+
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_drawable"
                 android:focusable="false"
-                android:hint="Время:"
+                android:hint="Время"
                 android:inputType="text"
                 android:paddingLeft="12dp"
                 android:textColor="#337E7E"
@@ -119,7 +127,9 @@
                 android:layout_weight="1"
                 android:background="@drawable/rounded_drawable"
                 android:focusable="false"
-                android:hint="Дата:"
+                android:fontFamily="@font/prmianerifypeface"
+
+                android:hint="Дата"
                 android:inputType="text"
                 android:paddingLeft="12dp"
                 android:textColor="#337E7E"
@@ -134,7 +144,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="16dp"
             android:orientation="vertical"><![CDATA[>
 
@@ -162,6 +172,8 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="35dp"
         android:layout_marginRight="30dp"
+        android:fontFamily="@font/permian_sans_typefaceold"
+
         android:background="@drawable/rounded_drawable"
         android:text="Сохранить"
         android:textAllCaps="false"
@@ -172,6 +184,8 @@
     <Button
         android:id="@+id/btnDelete"
         android:layout_width="match_parent"
+        android:fontFamily="@font/permian_sans_typefaceold"
+
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="25dp"

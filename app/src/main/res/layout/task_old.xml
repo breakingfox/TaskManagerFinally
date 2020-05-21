@@ -2,18 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
     android:layout_marginBottom="20dp"
-    android:background="@drawable/rounded_drawable"
+    android:background="@android:color/background_light"
     android:orientation="horizontal">
 
     <LinearLayout
-
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_marginLeft="10dp"
-
+        android:layout_width="220dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
         android:orientation="vertical">
 
         <TextView
@@ -21,13 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="19dp"
-            android:background="#FFFFFF"
-
-            android:text="Buy whiskas"
-            android:textAllCaps="false"
-            android:textColor="#337E7E"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textColor="#000C5D"
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/description"
@@ -35,20 +28,29 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Nearly market good to"
-            android:textColor="#3EA8A8"
+            android:textColor="#ADADAD"
             android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/calendar"
-            android:layout_width="178dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:text="Tomorrow"
             android:textAlignment="textStart"
-            android:textColor="#40AFAF"
+            android:textColor="#F63EA5"
             android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlCompat" />
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

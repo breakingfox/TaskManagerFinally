@@ -2,16 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="20dp"
-    android:background="@android:color/background_light"
+    android:background="@drawable/rounded_drawable"
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="220dp"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
+
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginLeft="10dp"
+
         android:orientation="vertical">
 
         <TextView
@@ -19,38 +21,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="19dp"
-            android:textColor="#000C5D"
-            android:textSize="22sp" />
+            android:background="#FFFFFF"
+            android:fontFamily="@font/permian_sans_typefaceold"
+
+            android:text="Buy whiskas"
+            android:textAllCaps="false"
+            android:textColor="#337E7E"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/permianansypeface"
+
             android:text="Nearly market good to"
-            android:textColor="#ADADAD"
+            android:textColor="#3EA8A8"
             android:textSize="18sp" />
-
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/calendar"
-            android:layout_width="match_parent"
+            android:layout_width="178dp"
             android:layout_height="wrap_content"
             android:gravity="right"
+            android:fontFamily="@font/permianansypeface"
+
             android:text="Tomorrow"
             android:textAlignment="textStart"
-            android:textColor="#F63EA5"
+            android:textColor="#40AFAF"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlCompat" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
