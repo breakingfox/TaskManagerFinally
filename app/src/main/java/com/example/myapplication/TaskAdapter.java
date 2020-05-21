@@ -10,8 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.R;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -28,7 +26,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.task_temp, parent, false));
+        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.task, parent, false));
     }
 
     @Override

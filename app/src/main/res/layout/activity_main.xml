@@ -35,6 +35,7 @@
                     android:layout_marginHorizontal="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/top_buttons"
+                    android:fontFamily="@font/permian_sans_typefaceold"
                     android:text="Все"
                     android:textAllCaps="false"
                     android:textColor="#337E7E"
@@ -44,6 +45,8 @@
                 <Button
                     android:id="@+id/btn_typeStudy"
                     android:layout_width="wrap_content"
+                    android:fontFamily="@font/permian_sans_typefaceold"
+
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:layout_weight="1"
@@ -62,6 +65,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/top_buttons"
                     android:text="Работа"
+                    android:fontFamily="@font/permian_sans_typefaceold"
+
                     android:textAllCaps="false"
                     android:textColor="#337E7E"
                     android:textSize="22sp"
@@ -133,6 +138,8 @@
                     android:layout_marginBottom="15dp"
                     android:layout_weight="1"
                     android:textStyle="bold"
+                    android:fontFamily="@font/permian_sans_typefaceold"
+
                     android:background="@drawable/rounded_drawable"
                     android:text="Добавить"
                     android:textAllCaps="false"
