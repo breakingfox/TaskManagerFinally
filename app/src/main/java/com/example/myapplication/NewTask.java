@@ -57,8 +57,15 @@ public class NewTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
+
         spinner = findViewById(R.id.spinner1);
-       
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                R.layout.custom_spinner,
+                getResources().getStringArray(R.array.types)
+        );
+        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+        spinner.setAdapter(adapter);
 
         titles = findViewById(R.id.titles);
         addTitle = findViewById(R.id.addtTitle);

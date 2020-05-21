@@ -158,7 +158,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:fontFamily="@font/permianansypeface"
-
                 android:background="@drawable/rounded_drawable"
                 android:entries="@array/types"
                 android:paddingLeft="12dp"
