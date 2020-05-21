@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#3EA8A8"
     tools:context=".MainActivity">
 
 
@@ -17,13 +18,17 @@
         <TextView
             android:id="@+id/titles"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="28dp"
+
             android:layout_marginBottom="18dp"
+            android:background="@drawable/top_buttons"
             android:gravity="center_horizontal"
             android:text="Создать задачу"
             android:textAlignment="center"
-            android:textSize="26sp" />
+            android:textColor="#337E7E"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -31,9 +36,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="-60dp"
+        android:background="#3EA8A8"
+
+        android:layout_marginTop="-70dp"
         android:layout_marginRight="16dp"
-        android:background="@android:color/background_light"
         android:orientation="vertical"
         android:paddingTop="22dp"
         android:paddingBottom="22dp">
@@ -45,25 +51,17 @@
             android:layout_marginRight="16dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/addtTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="Название"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
-
             <EditText
                 android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@color/common_google_signin_btn_text_dark_default"
-                android:hint="Введите название"
+                android:layout_height="70dp"
+                android:background="@drawable/rounded_drawable"
+                android:hint="Название"
                 android:inputType="textMultiLine|textCapSentences"
                 android:maxLength="50"
                 android:paddingLeft="12dp"
-                android:textColorHint="#B5B5B5" />
+                android:textColorHint="#B5B5B5"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -71,29 +69,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="16dp"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/addDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="Описание"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/description"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@color/common_google_signin_btn_text_dark_default"
-                android:hint="Введите описание"
+                android:layout_height="70dp"
+                android:background="@drawable/rounded_drawable"
+                android:hint="Описание"
                 android:inputType="textMultiLine|textCapSentences"
                 android:maxLength="250"
                 android:paddingLeft="12dp"
-                android:textColorHint="#B5B5B5" />
+                android:textColorHint="#B5B5B5"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -101,40 +91,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="16dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/addDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="Дата и время"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/etTimePicker"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@color/common_google_signin_btn_text_dark_default"
+                android:layout_height="70dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_drawable"
                 android:focusable="false"
-                android:hint="Выберите время"
+                android:hint="Время"
                 android:inputType="text"
                 android:paddingLeft="12dp"
-                android:textColorHint="#B5B5B5" />
+                android:textColorHint="#B5B5B5"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/etDatePicker"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@color/common_google_signin_btn_text_dark_default"
+                android:layout_height="70dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_drawable"
                 android:focusable="false"
-                android:hint="Выберите дату"
+                android:hint="Дата"
                 android:inputType="text"
                 android:paddingLeft="12dp"
-                android:textColorHint="#B5B5B5" />
+                android:textColorHint="#B5B5B5"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -142,23 +129,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="16dp"
-            android:orientation="vertical">>
+            android:orientation="vertical"><![CDATA[>
 
-            <TextView
-                android:id="@+id/setType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="Type of task"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
+            ]]>
 
             <Spinner
                 android:id="@+id/spinner1"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="70dp"
+                android:background="@drawable/rounded_drawable"
                 android:entries="@array/types"
                 android:paddingLeft="12dp" />
 
@@ -173,20 +154,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
+        android:layout_marginTop="35dp"
         android:layout_marginRight="30dp"
+        android:background="@drawable/rounded_drawable"
         android:text="Создать"
+    android:textColor="#337E7E"
         android:textAllCaps="false"
-        android:textSize="22sp" />
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnCancel"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:layout_marginLeft="30dp"
+        android:textColor="#337E7E"
+
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/rounded_drawable"
         android:text="Назад"
         android:textAllCaps="false"
         android:textSize="22sp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"/>
+        android:textStyle="bold" />
 
 
 </LinearLayout>

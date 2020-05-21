@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +37,7 @@ public class EditTask extends AppCompatActivity {
     DatabaseReference ref;
     Calendar calendar = null;
     Spinner spinner;
+    public static final String SHARED_PREFS = "prefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,10 @@ public class EditTask extends AppCompatActivity {
         title.setText(getIntent().getStringExtra("title"));
         description.setText(getIntent().getStringExtra("description"));
         key = getIntent().getStringExtra("key");
+
+
+        SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        final String firstStart = preferences.getString("firstStart","0");
 
         if (getIntent().getStringExtra("type").equalsIgnoreCase("Работа"))
             spinner.setSelection(1);
@@ -70,9 +76,15 @@ public class EditTask extends AppCompatActivity {
         }
         final int curMonth = calendar.get(Calendar.MONTH) + 1;
 
-        etTimePicker.setText(calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE));
+        String curHour = Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
+        String curMinute = Integer.toString(calendar.get(Calendar.MINUTE));
+        if (Integer.parseInt(curHour) < 10)
+            curHour = "0" + Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
+        if (Integer.parseInt(curMinute) < 10)
+            curMinute = "0" + Integer.toString(calendar.get(Calendar.MINUTE));
+        etTimePicker.setText(curHour + ":" + curMinute);
         etDatePicker.setText(calendar.get(Calendar.DAY_OF_MONTH) + "." + curMonth + "." + calendar.get(Calendar.YEAR));
-        ref = FirebaseDatabase.getInstance().getReference().child("TaskManager").child("Task" + key);
+        ref = FirebaseDatabase.getInstance().getReference().child("TaskManager").child(firstStart).child("Task" + key);
 
 
         etDatePicker.setOnClickListener(new View.OnClickListener() {

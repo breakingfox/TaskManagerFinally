@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -28,6 +29,7 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity {
 
     public static final String CHANNEL_ID = "channel";
+    public static final String SHARED_PREFS = "prefs";
     Button btnAddNew;
     TextView title;
     RecyclerView taskView;
@@ -53,13 +55,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(a);
             }
         });
+        SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        final String firstStart = preferences.getString("firstStart","0");
+        if(firstStart.equals("0")) {
+            showId();
+        }
 
         title = findViewById(R.id.title);
         taskView = findViewById(R.id.tasks);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         GridLayoutManager gridManager = new GridLayoutManager(this, 2);
-        AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(this, 500);
-        taskView.setLayoutManager(layoutManager);
+        AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(this, 140);
+        taskView.setLayoutManager(gridManager);
         taskView.setHasFixedSize(true);
         taskList = new ArrayList<TaskNode>();
 
@@ -70,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         taskList1 = new ArrayList<TaskNode>();
         taskList2 = new ArrayList<TaskNode>();
 
-        ref = FirebaseDatabase.getInstance().getReference().child("TaskManager");
+        ref = FirebaseDatabase.getInstance().getReference().child("TaskManager").child(firstStart);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -129,5 +136,16 @@ public class MainActivity extends AppCompatActivity {
                 taskAdapter2.notifyDataSetChanged();
             }
         });
+    }
+
+    private void showId()
+    {
+        String ID = Integer.toString((int)((Math.random()*100000000)));
+
+        SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putString("firstStart",ID);
+        editor.apply();
     }
 }

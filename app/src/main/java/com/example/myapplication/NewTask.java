@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,12 +48,13 @@ public class NewTask extends AppCompatActivity {
     NotificationManagerCompat notificationManager;
     Notification notification;
     Spinner spinner;
+    public static final String SHARED_PREFS = "prefs";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
-
         spinner = findViewById(R.id.spinner1);
 
         titles = findViewById(R.id.titles);
@@ -67,6 +69,10 @@ public class NewTask extends AppCompatActivity {
         etDatePicker = findViewById(R.id.etDatePicker);
         etTimePicker = findViewById(R.id.etTimePicker);
         final Calendar calendar = Calendar.getInstance();
+
+        SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        final String firstStart = preferences.getString("firstStart","0");
+
         etDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +124,7 @@ public class NewTask extends AppCompatActivity {
 
                 String selected_type = spinner.getSelectedItem().toString();
 
-                ref = FirebaseDatabase.getInstance().getReference().child("TaskManager").child("Task" + key);
+                ref = FirebaseDatabase.getInstance().getReference().child("TaskManager").child(firstStart).child("Task" + key);
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -156,7 +162,7 @@ public class NewTask extends AppCompatActivity {
                             Log.w("NewTask", "Time now: " + String.valueOf(time.getTimeInMillis() / 1000));
                             Log.w("NewTask", "Time diff: " + String.valueOf(temp));
                             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - 20000, pendingIntent);
+                            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
                         }
                         startActivity(main);
                     }
@@ -170,7 +176,7 @@ public class NewTask extends AppCompatActivity {
 
                 //===========================================NOTIFICATIONS=================================================================================================
                 notification = new NotificationCompat.Builder(NewTask.this, CHANNEL_ID_1)
-                        .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
+                        .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle(title.getText().toString())
                         .setContentText(description.getText().toString()).build();
 

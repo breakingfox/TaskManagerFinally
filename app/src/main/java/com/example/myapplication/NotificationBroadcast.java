@@ -13,7 +13,7 @@ public class NotificationBroadcast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "channel1")
-                .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
+                .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentTitle(intent.getStringExtra("title"))
                 .setContentText(intent.getStringExtra("description"))
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
