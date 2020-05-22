@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:id="@+id/parent"
+    android:background="@drawable/rounded_drawable">
+
+    <TextView
+        android:gravity="center_horizontal"
+        android:layout_weight="1"
+        android:id="@+id/type_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
+
+        android:text="Buy whiskas"
+        android:textAllCaps="false"
+        android:textColor="#337E7E"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

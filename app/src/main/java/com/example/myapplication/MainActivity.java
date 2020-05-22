@@ -3,10 +3,14 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,19 +37,19 @@ public class MainActivity extends AppCompatActivity {
     Button btnAddNew;
     TextView title;
     RecyclerView taskView;
-    ArrayList<TaskNode> taskList, taskList1, taskList2;
+    ArrayList<TaskNode> taskList;
     DatabaseReference ref;
-    TaskAdapter taskAdapter, taskAdapter1, taskAdapter2;
-    Button btnTypeAll;
+    TaskAdapter taskAdapter;
 
-    Button btnTypeStudy;
-    Button btnTypeWork;
+    Spinner spinner;
+    ArrayList<String> taskTypes;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         btnAddNew = findViewById(R.id.btnAddNew);
         btnAddNew.setOnClickListener(new View.OnClickListener() {
@@ -55,11 +59,24 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(a);
             }
         });
+
+
+
         SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         final String firstStart = preferences.getString("firstStart","0");
         if(firstStart.equals("0")) {
             showId();
         }
+
+        taskTypes = new ArrayList<String>();
+        SharedPreferences.Editor editor = preferences.edit();
+        int size = preferences.getInt("Types_size", 0);
+        taskTypes.add("Все");
+        for(int i=0;i<size;i++)
+        {
+            taskTypes.add(preferences.getString("Types_" + i+1 , null));
+        }
+
 
         title = findViewById(R.id.title);
         taskView = findViewById(R.id.tasks);
@@ -70,12 +87,13 @@ public class MainActivity extends AppCompatActivity {
         taskView.setHasFixedSize(true);
         taskList = new ArrayList<TaskNode>();
 
-        btnTypeAll = findViewById(R.id.btn_typeAll);
-        btnTypeStudy = findViewById(R.id.btn_typeStudy);
-        btnTypeWork = findViewById(R.id.btn_typeWork);
 
-        taskList1 = new ArrayList<TaskNode>();
-        taskList2 = new ArrayList<TaskNode>();
+
+        final ArrayList<ArrayList<TaskNode>> taskNodes = new ArrayList<>();
+        for (int i = 0; i < taskTypes.size(); i++) {
+            taskNodes.add(new ArrayList<TaskNode>());
+        }
+
 
         ref = FirebaseDatabase.getInstance().getReference().child("TaskManager").child(firstStart);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -92,15 +110,16 @@ public class MainActivity extends AppCompatActivity {
                 taskView.setAdapter(taskAdapter);
                 taskAdapter.notifyDataSetChanged();
 
-                for (int i = 0; i < taskList.size(); i++) {
-                    if (taskList.get(i).getType().equalsIgnoreCase("Учёба"))
-                        taskList1.add(taskList.get(i));
-                    else if (taskList.get(i).getType().equalsIgnoreCase("Работа"))
-                        taskList2.add(taskList.get(i));
+                for (int i = 1; i < taskTypes.size(); i++) { //taskTypes.size()
+                    for (int j = 0; j < taskList.size(); j++) {
+                        if(taskTypes.get(i).equalsIgnoreCase(taskList.get(j).getType()))
+                            taskNodes.get(i).add(taskList.get(j));
+                        if(i == 1) {
+                            taskNodes.get(0).add(taskList.get(j));
+                        }
+                    }
                 }
 
-                taskAdapter1 = new TaskAdapter(MainActivity.this, taskList1);
-                taskAdapter2 = new TaskAdapter(MainActivity.this, taskList2);
             }
 
             @Override
@@ -109,31 +128,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         final Animation fallingAnimation = AnimationUtils.loadAnimation(this, R.anim.falling_down);
-        btnTypeAll.setOnClickListener(new View.OnClickListener() {
+
+
+        final ArrayList<TaskAdapter> taskAdapters = new ArrayList<>();
+        for (int i = 0; i < taskNodes.size(); i++) {
+            taskAdapters.add(new TaskAdapter(MainActivity.this,taskNodes.get(i)));
+        }
+        taskAdapters.add(new TaskAdapter(MainActivity.this,taskList));
+
+        spinner = findViewById(R.id.spinner2);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                R.layout.custom_spinner1,
+                taskTypes
+        );
+        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown1);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                taskView.setAdapter(taskAdapter);
-                taskAdapter.notifyDataSetChanged();
-                btnTypeAll.startAnimation(fallingAnimation);
-
-
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                taskView.setAdapter(taskAdapters.get(position));
             }
-        });
 
-        btnTypeStudy.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                taskView.setAdapter(taskAdapter1);
-                taskAdapter1.notifyDataSetChanged();
-            }
-        });
+            public void onNothingSelected(AdapterView<?> parent) {
 
-
-        btnTypeWork.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                taskView.setAdapter(taskAdapter2);
-                taskAdapter2.notifyDataSetChanged();
             }
         });
     }

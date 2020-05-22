@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddNewTypeTask"
+    android:orientation="vertical"
+    android:background="#3EA8A8">
+
+    <EditText
+        android:id="@+id/edit_type"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/rounded_drawable"
+        android:hint="Название нового типа"
+        android:textColor="#3EA8A8"
+        android:fontFamily="@font/permianansypeface"
+        android:inputType="textMultiLine|textCapSentences"
+        android:maxLength="20"
+        android:paddingLeft="12dp"
+        android:textColorHint="#B5B5B5"
+        android:textStyle="bold"
+        android:layout_margin="10dp"/>
+    <Button
+        android:layout_margin="10dp"
+        android:text="Добавить"
+        android:textSize="22sp"
+        android:textAllCaps="false"
+        android:textColor="#337E7E"
+        android:id="@+id/btn_save_type"
+        android:layout_below="@+id/edit_type"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:fontFamily="@font/permian_sans_typefaceold"
+        android:background="@drawable/rounded_drawable">
+    </Button>
+
+
+</RelativeLayout>

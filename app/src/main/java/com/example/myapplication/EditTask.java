@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -37,6 +39,7 @@ public class EditTask extends AppCompatActivity {
     DatabaseReference ref;
     Calendar calendar = null;
     Spinner spinner;
+    ArrayList<String> types;
     public static final String SHARED_PREFS = "prefs";
 
     @Override
@@ -58,8 +61,30 @@ public class EditTask extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         final String firstStart = preferences.getString("firstStart","0");
 
-        if (getIntent().getStringExtra("type").equalsIgnoreCase("Работа"))
-            spinner.setSelection(1);
+        types = new ArrayList<>();
+        SharedPreferences.Editor editor = preferences.edit();
+        int size = preferences.getInt("Types_size", 0);
+        for(int i=0;i<size;i++)
+        {
+            types.add(preferences.getString("Types_" + i+1 , null));
+        }
+
+
+        spinner = findViewById(R.id.spinner2);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                R.layout.custom_spinner,
+                types
+        );
+        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+        spinner.setAdapter(adapter);
+
+        String currentType = getIntent().getStringExtra("type");
+        for (int i = 0; i < size; i++) {
+            if(types.get(i).equalsIgnoreCase(currentType))
+                spinner.setSelection(i);
+        }
+
 
         final String TAG = "EditTask";
         String time = getIntent().getStringExtra("calendar");

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,63 +17,15 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/linear_layout2"
+            android:id="@+id/linear_layout9"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <LinearLayout
+            android:layout_height="80dp">
+            <Spinner
+                android:id="@+id/spinner2"
                 android:layout_width="match_parent"
-                android:layout_height="73dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_typeAll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/top_buttons"
-                    android:fontFamily="@font/permian_sans_typefaceold"
-                    android:text="Все"
-                    android:textAllCaps="false"
-                    android:textColor="#337E7E"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/btn_typeStudy"
-                    android:layout_width="wrap_content"
-                    android:fontFamily="@font/permian_sans_typefaceold"
-
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/top_buttons"
-                    android:text="Учёба"
-                    android:textAllCaps="false"
-                    android:textColor="#337E7E"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/btn_typeWork"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/top_buttons"
-                    android:text="Работа"
-                    android:fontFamily="@font/permian_sans_typefaceold"
-
-                    android:textAllCaps="false"
-                    android:textColor="#337E7E"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:entries="@array/types">
+            </Spinner>
         </LinearLayout>
 
         <LinearLayout
@@ -80,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/linear_layout4"
-            android:layout_below="@id/linear_layout2"
+            android:layout_below="@id/linear_layout9"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"

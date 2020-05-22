@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -35,6 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -51,21 +53,50 @@ public class NewTask extends AppCompatActivity {
     Notification notification;
     Spinner spinner;
     public static final String SHARED_PREFS = "prefs";
-
+    ArrayList<String> types;
+    int size;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
 
+        SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        final String firstStart = preferences.getString("firstStart","0");
+
+        types = new ArrayList<>();
+        SharedPreferences.Editor editor = preferences.edit();
+        size = preferences.getInt("Types_size", 0);
+        for(int i=0;i<size;i++)
+        {
+            types.add(preferences.getString("Types_" + i+1 , null));
+        }
+        types.add("Настройка Типов");
+
         spinner = findViewById(R.id.spinner1);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
                 R.layout.custom_spinner,
-                getResources().getStringArray(R.array.types)
+                types
         );
         adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
         spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == size)
+                {
+                    Intent main = new Intent(NewTask.this, TypeAdd.class);
+                    startActivity(main);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         titles = findViewById(R.id.titles);
         addTitle = findViewById(R.id.addtTitle);
@@ -80,8 +111,7 @@ public class NewTask extends AppCompatActivity {
         etTimePicker = findViewById(R.id.etTimePicker);
         final Calendar calendar = Calendar.getInstance();
 
-        SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        final String firstStart = preferences.getString("firstStart","0");
+
 
         etDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,42 +168,49 @@ public class NewTask extends AppCompatActivity {
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        dataSnapshot.getRef().child("title").setValue(title.getText().toString());
-                        dataSnapshot.getRef().child("description").setValue(description.getText().toString());
-                        dataSnapshot.getRef().child("key").setValue(key);
-                        //   Log.w("NewTask", String.valueOf(calendar.get(Calendar.MONTH)));
-                        int curMonth = calendar.get(Calendar.MONTH) + 1;
-                        String curHour = Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
-                        String curMinute = Integer.toString(calendar.get(Calendar.MINUTE));
-                        if (calendar.get(Calendar.HOUR_OF_DAY) < 10)
-                            curHour = "0" + Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
-                        if (calendar.get(Calendar.MINUTE) < 10)
-                            curMinute = "0" + Integer.toString(calendar.get(Calendar.MINUTE));
-                        dataSnapshot.getRef().child("calendar").setValue(calendar.get(Calendar.DAY_OF_MONTH) + "." + curMonth + "." + calendar.get(Calendar.YEAR) + " " + curHour + ":" + curMinute);
+                        if(title.getText().toString().length() != 0)
+                        {
+                            dataSnapshot.getRef().child("title").setValue(title.getText().toString());
+                            dataSnapshot.getRef().child("description").setValue(description.getText().toString());
+                            dataSnapshot.getRef().child("key").setValue(key);
+                            //   Log.w("NewTask", String.valueOf(calendar.get(Calendar.MONTH)));
+                            int curMonth = calendar.get(Calendar.MONTH) + 1;
+                            String curHour = Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
+                            String curMinute = Integer.toString(calendar.get(Calendar.MINUTE));
+                            if (calendar.get(Calendar.HOUR_OF_DAY) < 10)
+                                curHour = "0" + Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
+                            if (calendar.get(Calendar.MINUTE) < 10)
+                                curMinute = "0" + Integer.toString(calendar.get(Calendar.MINUTE));
+                            dataSnapshot.getRef().child("calendar").setValue(calendar.get(Calendar.DAY_OF_MONTH) + "." + curMonth + "." + calendar.get(Calendar.YEAR) + " " + curHour + ":" + curMinute);
 
-                        dataSnapshot.getRef().child("type").setValue(spinner.getSelectedItem().toString());
+                            dataSnapshot.getRef().child("type").setValue(spinner.getSelectedItem().toString());
 
-                        Intent main = new Intent(NewTask.this, MainActivity.class);
 
-                        if (calendar.after(Calendar.getInstance())) {
-                            Log.w("NewTask", "Time im millis for notification: " + String.valueOf(calendar.getTimeInMillis() / 1000));
+                            if (calendar.after(Calendar.getInstance())) {
+                                Log.w("NewTask", "Time im millis for notification: " + String.valueOf(calendar.getTimeInMillis() / 1000));
 
-                            Intent notifyIntent = new Intent(NewTask.this, NotificationBroadcast.class);
-                            Log.w("NewTask", "Title: " + title.getText().toString());
-                            Log.w("NewTask", "Desc: " + description.getText().toString());
-                            Log.w("NewTask", "ID: " + Integer.toString(key));
-                            notifyIntent.putExtra("title", title.getText().toString());
-                            notifyIntent.putExtra("description", description.getText().toString());
-                            notifyIntent.putExtra("key", key);
+                                Intent notifyIntent = new Intent(NewTask.this, NotificationBroadcast.class);
+                                Log.w("NewTask", "Title: " + title.getText().toString());
+                                Log.w("NewTask", "Desc: " + description.getText().toString());
+                                Log.w("NewTask", "ID: " + Integer.toString(key));
+                                notifyIntent.putExtra("title", title.getText().toString());
+                                notifyIntent.putExtra("description", description.getText().toString());
+                                notifyIntent.putExtra("key", key);
 
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(NewTask.this, key, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                            Calendar time = Calendar.getInstance();
-                            long temp = (calendar.getTimeInMillis() - time.getTimeInMillis()) / 1000;
-                            Log.w("NewTask", "Time now: " + String.valueOf(time.getTimeInMillis() / 1000));
-                            Log.w("NewTask", "Time diff: " + String.valueOf(temp));
-                            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                                PendingIntent pendingIntent = PendingIntent.getBroadcast(NewTask.this, key, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                Calendar time = Calendar.getInstance();
+                                long temp = (calendar.getTimeInMillis() - time.getTimeInMillis()) / 1000;
+                                Log.w("NewTask", "Time now: " + String.valueOf(time.getTimeInMillis() / 1000));
+                                Log.w("NewTask", "Time diff: " + String.valueOf(temp));
+                                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                            }
                         }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(),"У заметки нет имени!",Toast.LENGTH_SHORT).show();
+                        }
+                        Intent main = new Intent(NewTask.this, MainActivity.class);
                         startActivity(main);
                     }
 
