@@ -23,6 +23,7 @@
             android:layout_height="80dp">
             <Spinner
                 android:id="@+id/spinner2"
+                android:layout_marginHorizontal="28dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:entries="@array/types">

@@ -31,8 +31,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int i) {
-        holder.title.setText(taskList.get(i).getTitle());
-        holder.description.setText(taskList.get(i).getDescription());
+        if (taskList.get(i).getTitle().length() < 11)
+            holder.title.setText(taskList.get(i).getTitle());
+        else
+            holder.title.setText(taskList.get(i).getTitle().substring(0, 11));
+        if (taskList.get(i).getDescription().length() < 14)
+            holder.description.setText(taskList.get(i).getDescription());
+        else
+            holder.description.setText(taskList.get(i).getDescription().substring(0, 14));
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         holder.calendar.setText(taskList.get(i).getCalendar());
         final String title = taskList.get(i).getTitle();
@@ -44,17 +50,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent editing = new Intent(context,EditTask.class);
+                Intent editing = new Intent(context, EditTask.class);
                 editing.putExtra("title", title);
                 editing.putExtra("description", description);
                 editing.putExtra("key", key);
-                editing.putExtra("calendar",calendar);
-                editing.putExtra("type",type);
+                editing.putExtra("calendar", calendar);
+                editing.putExtra("type", type);
                 context.startActivity(editing);
             }
         });
     }
-
 
 
     @Override
@@ -63,7 +68,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView title, description,  key,calendar, type;
+        TextView title, description, key, calendar, type;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
