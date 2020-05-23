@@ -39,8 +39,21 @@ public class TypeAdd extends AppCompatActivity {
         }
 
 
-        recyclerView = findViewById(R.id.recycle_types);
+        String firstStart = sp.getString("first1","0");
+        if(types.size() == 0)
+        {
+            Toast.makeText(this,"Добавьте новый тип задачи",Toast.LENGTH_LONG).show();
+        }
+        else if (firstStart.equalsIgnoreCase("0"))
+        {
+            Toast.makeText(this, "Для удаления типа задачи смахните вправо/влево",Toast.LENGTH_LONG).show();
+            editor.remove("first1");
+            editor.putString("first1","1");
+            editor.apply();
+        }
 
+
+        recyclerView = findViewById(R.id.recycle_types);
 
         final TypeAdapter typeAdapter = new TypeAdapter(TypeAdd.this,types);
         recyclerView.setAdapter(typeAdapter);

@@ -17,6 +17,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+           android:layout_marginHorizontal="20dp"
             android:id="@+id/linear_layout9"
             android:layout_width="match_parent"
             android:layout_height="80dp">

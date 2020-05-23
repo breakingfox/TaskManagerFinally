@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     Spinner spinner;
     ArrayList<String> taskTypes;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         taskView = findViewById(R.id.tasks);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         GridLayoutManager gridManager = new GridLayoutManager(this, 2);
-        AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(this, 140);
+        AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(this, 240);
         taskView.setLayoutManager(gridManager);
         taskView.setHasFixedSize(true);
         taskList = new ArrayList<TaskNode>();

@@ -11,4 +11,4 @@
     android:textColor="#3EA8A8"
     android:textStyle="bold"
     android:fontFamily="@font/permian_sans_typefaceold"
-    android:background="@drawable/rounded_drawable"/>
+    android:background="@drawable/rounded_drawable" />

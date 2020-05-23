@@ -8,11 +8,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".AddNewTypeTask"></activity>
-        <activity android:name=".TypeAdd" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".SplashScreen">
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+        >
+        <activity android:name=".AddNewTypeTask" android:screenOrientation="portrait"></activity>
+        <activity android:name=".TypeAdd"  android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SplashScreen" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,9 +24,9 @@
 
         <receiver android:name=".NotificationBroadcast" />
 
-        <activity android:name=".NewTask" />
-        <activity android:name=".ShowTask" />
-        <activity android:name=".EditTask" />
+        <activity android:name=".NewTask" android:screenOrientation="portrait"/>
+        <activity android:name=".ShowTask" android:screenOrientation="portrait"/>
+        <activity android:name=".EditTask" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
