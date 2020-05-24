@@ -112,7 +112,7 @@ public class NewTask extends AppCompatActivity {
         final Calendar calendar = Calendar.getInstance();
 
 
-
+//окна выбора даты и времени
         etDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,7 +155,6 @@ public class NewTask extends AppCompatActivity {
         //==============================================================================
 
         createNotificationChannel();
-
         notificationManager = NotificationManagerCompat.from(this);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,6 +166,7 @@ public class NewTask extends AppCompatActivity {
                 ref = FirebaseDatabase.getInstance().getReference().child("TaskManager").child(firstStart).child("Task" + key);
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
+                    //запись данных в firebase
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if(title.getText().toString().length() != 0)
                         {
@@ -185,6 +185,7 @@ public class NewTask extends AppCompatActivity {
 
                             dataSnapshot.getRef().child("type").setValue(spinner.getSelectedItem().toString());
 
+//обработка уведомлений
 
                             if (calendar.after(Calendar.getInstance())) {
                                 Log.w("NewTask", "Time im millis for notification: " + String.valueOf(calendar.getTimeInMillis() / 1000));
@@ -238,7 +239,7 @@ public class NewTask extends AppCompatActivity {
             }
         });
     }
-
+//создание канала уведомлений
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library

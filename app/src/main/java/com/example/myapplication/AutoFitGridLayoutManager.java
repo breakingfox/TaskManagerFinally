@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AutoFitGridLayoutManager extends GridLayoutManager {
+    //собственный класс layoutManager для удобного показа заметок
 
     private int columnWidth;
     private boolean columnWidthChanged = true;

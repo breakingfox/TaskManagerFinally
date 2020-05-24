@@ -14,9 +14,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> {
+    //адаптер для обработки элементов layout
+
     Context context;
     ArrayList<TaskNode> taskList;
-
     public TaskAdapter(Context cont, ArrayList<TaskNode> task) {
         context = cont;
         taskList = task;
@@ -46,7 +47,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
         final String key = Integer.toString(taskList.get(i).getKey());
         final String calendar = taskList.get(i).getCalendar();
         final String type = taskList.get(i).getType();
-
+//передача данных в EditTask
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

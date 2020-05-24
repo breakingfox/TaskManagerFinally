@@ -46,10 +46,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         btnAddNew = findViewById(R.id.btnAddNew);
         btnAddNew.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,10 +59,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
+//проверка на первый вход в приложение
         SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        final String firstStart = preferences.getString("firstStart","0");
-        if(firstStart.equals("0")) {
+        final String firstStart = preferences.getString("firstStart", "0");
+        if (firstStart.equals("0")) {
             showId();
         }
 
@@ -71,9 +70,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         int size = preferences.getInt("Types_size", 0);
         taskTypes.add("Все");
-        for(int i=0;i<size;i++)
-        {
-            taskTypes.add(preferences.getString("Types_" + i+1 , null));
+        for (int i = 0; i < size; i++) {
+            taskTypes.add(preferences.getString("Types_" + i + 1, null));
         }
 
 
@@ -87,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
         taskList = new ArrayList<TaskNode>();
 
 
-
         final ArrayList<ArrayList<TaskNode>> taskNodes = new ArrayList<>();
         for (int i = 0; i < taskTypes.size(); i++) {
             taskNodes.add(new ArrayList<TaskNode>());
@@ -97,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         ref = FirebaseDatabase.getInstance().getReference().child("TaskManager").child(firstStart);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
+            //получение данных из firebase
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     TaskNode node = dataSnapshot1.getValue(TaskNode.class);
@@ -104,16 +102,16 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 Collections.sort(taskList); //сортировка ( taskNode имплементирует comparable )
-
+//устнаовка адаптера для заметок
                 taskAdapter = new TaskAdapter(MainActivity.this, taskList);
                 taskView.setAdapter(taskAdapter);
                 taskAdapter.notifyDataSetChanged();
 
                 for (int i = 1; i < taskTypes.size(); i++) { //taskTypes.size()
                     for (int j = 0; j < taskList.size(); j++) {
-                        if(taskTypes.get(i).equalsIgnoreCase(taskList.get(j).getType()))
+                        if (taskTypes.get(i).equalsIgnoreCase(taskList.get(j).getType()))
                             taskNodes.get(i).add(taskList.get(j));
-                        if(i == 1) {
+                        if (i == 1) {
                             taskNodes.get(0).add(taskList.get(j));
                         }
                     }
@@ -126,17 +124,16 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "No Data", Toast.LENGTH_SHORT).show();
             }
         });
-        final Animation fallingAnimation = AnimationUtils.loadAnimation(this, R.anim.falling_down);
 
 
         final ArrayList<TaskAdapter> taskAdapters = new ArrayList<>();
         for (int i = 0; i < taskNodes.size(); i++) {
-            taskAdapters.add(new TaskAdapter(MainActivity.this,taskNodes.get(i)));
+            taskAdapters.add(new TaskAdapter(MainActivity.this, taskNodes.get(i)));
         }
-        taskAdapters.add(new TaskAdapter(MainActivity.this,taskList));
+        taskAdapters.add(new TaskAdapter(MainActivity.this, taskList));
 
         spinner = findViewById(R.id.spinner2);
-
+//настройка всплывающего списка
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
                 R.layout.custom_spinner1,
@@ -157,14 +154,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showId()
-    {
-        String ID = Integer.toString((int)((Math.random()*100000000)));
+    private void showId() {
+        String ID = Integer.toString((int) ((Math.random() * 100000000)));
 
         SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
-        editor.putString("firstStart",ID);
+        editor.putString("firstStart", ID);
         editor.apply();
     }
 }
