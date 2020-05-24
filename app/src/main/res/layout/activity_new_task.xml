@@ -24,6 +24,7 @@
             android:background="@drawable/top_buttons"
             android:gravity="center_horizontal"
             android:text="Создать задачу"
+            android:fontFamily="@font/permian_sans_typefaceold"
             android:textAlignment="center"
             android:textColor="#337E7E"
             android:textSize="22sp"

@@ -34,6 +34,7 @@
            android:layout_height="50dp"
            android:layout_margin = "10dp"
            android:orientation="horizontal">
+
            <Button
 
                android:layout_weight="1"
@@ -46,21 +47,20 @@
                android:layout_marginRight="5dp"
                android:textColor="#337E7E"
                android:textSize="22sp"
+               android:textAllCaps="false" />
+
+           <Button
+               android:textSize="22sp"
                android:textAllCaps="false"
-               ></Button>
-             <Button
-                 android:textSize="22sp"
-                 android:textAllCaps="false"
-                 android:textColor="#337E7E"
-                 android:layout_marginLeft="5dp"
-                 android:background="@drawable/rounded_drawable"
-                 android:layout_weight="1"
-                 android:id="@+id/add_new_type"
-                 android:text="Добавить"
-                  android:layout_width="wrap_content"
-                  android:layout_height="match_parent"
-                 android:fontFamily="@font/permian_sans_typefaceold"
-                 ></Button>
+               android:textColor="#337E7E"
+               android:layout_marginLeft="5dp"
+               android:background="@drawable/rounded_drawable"
+               android:layout_weight="1"
+               android:id="@+id/add_new_type"
+               android:text="Добавить"
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"
+               android:fontFamily="@font/permian_sans_typefaceold" />
        </LinearLayout>
    </RelativeLayout>
 
