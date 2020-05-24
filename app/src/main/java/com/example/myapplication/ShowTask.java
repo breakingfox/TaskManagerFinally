@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class ShowTask extends AppCompatActivity {
+    //Неиспользуемый класс, который был необходим ранее
     TextView title;
     RecyclerView taskView;
     ArrayList<TaskNode> taskList;

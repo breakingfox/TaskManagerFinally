@@ -6,9 +6,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class TaskNode implements Comparable<TaskNode> {
+    //класс заметок
     private String title;
     private String description;
-    // private String date;
     private int key;
     private boolean changed;
     private String calendar;

@@ -112,6 +112,7 @@ public class EditTask extends AppCompatActivity {
         ref = FirebaseDatabase.getInstance().getReference().child("TaskManager").child(firstStart).child("Task" + key);
 
 
+//окна выбора даты и времени
         etDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
